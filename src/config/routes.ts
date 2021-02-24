@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import UserController from './modules/Users/controllers/UserController'
+import UserController from '../modules/Users/controllers/UserController'
 
-import SurveysController from './modules/Surveys/controllers/SurveysController'
+import SurveysController from '../modules/Surveys/controllers/SurveysController'
 
 const router = Router()
 
