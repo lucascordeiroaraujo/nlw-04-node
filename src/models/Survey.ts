@@ -2,16 +2,16 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 
 import { v4 as uuid } from 'uuid'
 
-@Entity('users')
+@Entity('surveys')
 export default class User {
   @PrimaryColumn()
   readonly id: string
   
   @Column()
-  name: string
+  title: string
 
   @Column()
-  email: string
+  description: string
 
   @CreateDateColumn()
   created_at: Date
