@@ -1,14 +1,14 @@
 import 'reflect-metadata'
 
-import express from "express";
+import express from 'express'
 
 import createConnection from '../database'
 
 import { router } from './routes'
 
-createConnection();
+createConnection()
 
-const app = express();
+const app = express()
 
 app.use(express.json())
 

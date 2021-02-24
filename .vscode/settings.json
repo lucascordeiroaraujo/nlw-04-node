@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [120],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.suggest.autoImports": true,
+  "javascript.suggest.autoImports": true
+}

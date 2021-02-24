@@ -12,7 +12,7 @@ export default class SurveysController {
 
     const survey = surveysRepository.create({
       title,
-      description
+      description,
     })
 
     await surveysRepository.save(survey)
@@ -20,7 +20,7 @@ export default class SurveysController {
     return response.status(201).json(survey)
   }
 
-  async show(request: Request, response: Response){
+  async show(request: Request, response: Response) {
     const surveysRepository = getCustomRepository(SurveysRepository)
 
     const all = await surveysRepository.find()
