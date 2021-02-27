@@ -41,16 +41,6 @@ export default class SendMailController {
       })
     }
 
-    const path = resolve(__dirname, '..', 'views', 'emails', 'npsMail.hbs')
-
-    const variables = {
-      name: user.name,
-      title: survey.title,
-      description: survey.description,
-      link: process.env.URL_MAIL,
-      user_id: user.id,
-    }
-
     const surveyAlreadExists = await surveysUsersRepository.findOne({
       where: {
         user_id: user.id,
@@ -59,7 +49,19 @@ export default class SendMailController {
       relations: ['user', 'survey'],
     })
 
+    const path = resolve(__dirname, '..', 'views', 'emails', 'npsMail.hbs')
+
+    const variables = {
+      name: user.name,
+      title: survey.title,
+      description: survey.description,
+      link: process.env.URL_MAIL,
+      survey_id: '',
+    }
+
     if (surveyAlreadExists) {
+      variables.survey_id = surveyAlreadExists.id
+
       await SendMailService.execute({
         to: email,
         subject: survey.title,
@@ -75,14 +77,16 @@ export default class SendMailController {
       survey_id,
     })
 
+    await surveysUsersRepository.save(surveyUser)
+
+    variables.survey_id = surveyUser.id
+
     await SendMailService.execute({
       to: email,
       subject: survey.title,
       variables,
       path,
     })
-
-    await surveysUsersRepository.save(surveyUser)
 
     return response.json(surveyUser)
   }
