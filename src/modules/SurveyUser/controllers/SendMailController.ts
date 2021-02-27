@@ -11,11 +11,25 @@ import SurveyUserRepository from '../repositories'
 import SendMailService from '../services/SendMailService'
 
 import { resolve } from 'path'
-import SurveysController from '@modules/Surveys/controllers/SurveysController'
+
+import * as yup from 'yup'
 
 export default class SendMailController {
   async execute(request: Request, response: Response) {
     const { email, survey_id } = request.body
+
+    const schema = yup.object().shape({
+      email: yup.string().email().required(),
+      survey_id: yup.string().required(),
+    })
+
+    try {
+      await schema.validate(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({
+        err,
+      })
+    }
 
     const usersRepository = getCustomRepository(UsersRepository)
 
