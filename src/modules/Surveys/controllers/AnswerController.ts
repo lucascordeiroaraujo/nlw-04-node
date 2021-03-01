@@ -1,5 +1,7 @@
 import SurveyUserRepository from '@modules/SurveyUser/repositories'
 
+import AppError from '@shared/errors/AppError'
+
 import { Request, Response } from 'express'
 
 import { getCustomRepository } from 'typeorm'
@@ -17,9 +19,7 @@ export default class AnswerController {
     })
 
     if (!surveyUser) {
-      return response.status(400).json({
-        error: 'Survey user does not exists!',
-      })
+      throw new AppError('Survey user does not exists!')
     }
 
     surveyUser.value = value

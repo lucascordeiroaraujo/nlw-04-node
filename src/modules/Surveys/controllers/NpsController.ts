@@ -1,5 +1,7 @@
 import SurveyUserRepository from '@modules/SurveyUser/repositories'
 
+import AppError from '@shared/errors/AppError'
+
 import { Request, Response } from 'express'
 
 import { getCustomRepository, Not, IsNull } from 'typeorm'
@@ -17,9 +19,7 @@ export default class NpsController {
     try {
       await schema.validate(request.params, { abortEarly: false })
     } catch (err) {
-      return response.status(400).json({
-        err,
-      })
+      throw new AppError(err)
     }
 
     const surveysUsersRepository = getCustomRepository(SurveyUserRepository)

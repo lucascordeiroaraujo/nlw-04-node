@@ -1,6 +1,6 @@
 import request from 'supertest'
 
-import app from '@config/app'
+import app from '@shared/app'
 
 import createConnection from '@database/index'
 
@@ -9,6 +9,14 @@ describe('Surveys', () => {
     const connection = await createConnection()
 
     await connection.runMigrations()
+  })
+
+  afterAll(async () => {
+    const connection = await createConnection()
+
+    await connection.dropDatabase()
+
+    await connection.close()
   })
 
   it('Should be able to create a new survey', async () => {
